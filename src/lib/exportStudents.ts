@@ -1,5 +1,3 @@
-import { jsPDF } from 'jspdf'
-import autoTable from 'jspdf-autotable'
 import type { Student } from '@/types/student'
 
 const headers = ['ID', 'Name', 'Email', 'Course', 'Grade (%)']
@@ -36,7 +34,13 @@ export function exportToCsv(students: Student[]) {
   URL.revokeObjectURL(url)
 }
 
-export function exportToPdf(students: Student[]) {
+export async function exportToPdf(students: Student[]) {
+  // Load the PDF libraries only when this function is called
+  const [{ jsPDF }, { default: autoTable }] = await Promise.all([
+    import('jspdf'),
+    import('jspdf-autotable'),
+  ])
+
   const doc = new jsPDF()
   doc.setFontSize(16)
   doc.text('Student List', 14, 16)

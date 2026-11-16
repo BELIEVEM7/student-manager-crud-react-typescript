@@ -75,19 +75,18 @@ function App() {
     setStudents([])
     setIsDeleteAllOpen(false)
   }
-
   return (
     <div className="min-h-screen bg-gray-50 p-4 sm:p-8">
       <div className="mx-auto max-w-5xl">
-        <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-3xl font-bold text-gray-800">Student Manager</h1>
+        <div className="mb-6 flex items-center justify-between gap-3">
+          <h1 className="text-2xl font-bold text-gray-800 sm:text-3xl">Student Manager</h1>
           <Button onClick={openAddForm}>
             <Plus className="h-4 w-4" />
             Add Student
           </Button>
         </div>
 
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <StudentFilters
             search={search}
             onSearchChange={setSearch}
@@ -103,6 +102,7 @@ function App() {
             />
             <Button
               variant="destructive"
+              className="flex-1 sm:flex-none"
               disabled={students.length === 0}
               onClick={() => setIsDeleteAllOpen(true)}
             >

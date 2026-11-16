@@ -16,11 +16,13 @@ interface ExportMenuProps {
 function ExportMenu({ disabled, onExportCsv, onExportPdf }: ExportMenuProps) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" disabled={disabled}>
-          <Download className="h-4 w-4" />
-          Export
-        </Button>
+      <DropdownMenuTrigger
+        render={
+          <Button variant="outline" disabled={disabled} className="flex-1 sm:flex-none" />
+        }
+      >
+        <Download className="h-4 w-4" />
+        Export
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={onExportCsv}>Download as CSV</DropdownMenuItem>

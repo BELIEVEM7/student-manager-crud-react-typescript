@@ -34,7 +34,7 @@ function StudentFormDialog({ open, student, onSave, onClose }: StudentFormDialog
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
-      <DialogContent>
+      <DialogContent className="max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{isEditing ? 'Edit student' : 'Add student'}</DialogTitle>
           <DialogDescription>
@@ -101,7 +101,7 @@ function StudentForm({ initialData, submitLabel, onSave, onCancel }: StudentForm
       </div>
       <div className="space-y-2">
         <Label htmlFor="grade">Grade (%)</Label>
-        <Input id="grade" name="grade" type="number" min={0} max={100} value={form.grade} onChange={handleChange} required />
+        <Input id="grade" name="grade" type="number" inputMode="numeric" min={0} max={100} value={form.grade} onChange={handleChange} required />
       </div>
       <DialogFooter>
         <Button type="button" variant="outline" onClick={onCancel}>

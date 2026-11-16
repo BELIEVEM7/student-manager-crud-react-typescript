@@ -23,27 +23,36 @@ function StudentFilters({
   onCourseChange,
   courses,
 }: StudentFiltersProps) {
+  // Tells the Select which label to display for each value
+  const items = [
+    { value: 'all', label: 'All courses' },
+    ...courses.map((c) => ({ value: c, label: c })),
+  ]
+
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      <div className="relative w-full sm:w-auto">
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+      <div className="relative w-full sm:w-64">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
         <Input
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="Search by name or course..."
-          className="w-full pl-9 sm:w-64"
+          className="w-full pl-9"
         />
       </div>
 
-      <Select value={course} onValueChange={onCourseChange}>
+      <Select
+        value={course}
+        items={items}
+        onValueChange={(value) => onCourseChange(value ?? 'all')}
+      >
         <SelectTrigger className="w-full sm:w-52">
           <SelectValue placeholder="All courses" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">All courses</SelectItem>
-          {courses.map((c) => (
-            <SelectItem key={c} value={c}>
-              {c}
+          {items.map((item) => (
+            <SelectItem key={item.value} value={item.value}>
+              {item.label}
             </SelectItem>
           ))}
         </SelectContent>

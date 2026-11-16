@@ -2,11 +2,15 @@
 
 A small CRUD app for managing a list of students, built with React, TypeScript, Tailwind CSS and shadcn/ui. It is a frontend-only project that runs on mock data held in React state, so there is no backend or database to set up.
 
-<!-- Add a screenshot here once you have one:
-![Student Manager screenshot](./docs/screenshot.png)
--->
+## **Live demo:** [student-crud](https://crud-student-manager-q3uo-m9anh9k7x-believe-mpongombos-projects.vercel.app/)
 
-**Live demo:** _add your link here (optional)_
+## Screenshots
+
+**Student list** with search, course filter, export and delete-all controls:
+![Student List](./docs/Screenshot-table.png)
+
+**Add** student dialog (the same form is reused for editing):
+![Add Student Dialog](./docs/Screenshot-add-student.png)
 
 ## Features
 

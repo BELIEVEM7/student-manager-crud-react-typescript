@@ -1,5 +1,12 @@
 # Student Manager
 
+![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?logo=tailwindcss&logoColor=white)
+![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-000000)
+![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)
+![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?logo=vercel&logoColor=white)
+
 A small CRUD app for managing a list of students, built with React, TypeScript, Tailwind CSS and shadcn/ui. It is a frontend-only project that runs on mock data held in React state, so there is no backend or database to set up.
 
 ## **Live demo:** [student-crud](https://crud-student-manager.vercel.app/)

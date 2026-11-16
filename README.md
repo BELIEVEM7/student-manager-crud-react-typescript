@@ -1,78 +1,112 @@
-# React + TypeScript + Vite
+# Student Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small CRUD app for managing a list of students, built with React, TypeScript, Tailwind CSS and shadcn/ui. It is a frontend-only project that runs on mock data held in React state, so there is no backend or database to set up.
 
-Currently, two official plugins are available:
+<!-- Add a screenshot here once you have one:
+![Student Manager screenshot](./docs/screenshot.png)
+-->
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**Live demo:** _add your link here (optional)_
 
-## React Compiler
+## Features
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- **Create:** add a student through a dialog form
+- **Read:** view all students in a table
+- **Update:** edit any student from the row's Edit button
+- **Delete:** remove one student, with a confirmation step
+- **Delete all:** clear the whole list, with a confirmation step
+- **Search:** filter by name or course as you type
+- **Filter:** narrow the table by course using a dropdown
+- **Export:** download the currently visible rows as CSV or PDF
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+## Tech stack
 
-## Expanding the ESLint configuration
+| Tool                                                                                                              | Purpose                                    |
+| ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
+| [React](https://react.dev)                                                                                        | UI library                                 |
+| [TypeScript](https://www.typescriptlang.org)                                                                      | Type safety                                |
+| [Vite](https://vite.dev)                                                                                          | Dev server and build tool                  |
+| [Tailwind CSS](https://tailwindcss.com)                                                                           | Styling                                    |
+| [shadcn/ui](https://ui.shadcn.com)                                                                                | Table, dialog, select and other components |
+| [lucide-react](https://lucide.dev)                                                                                | Icons                                      |
+| [jsPDF](https://github.com/parallax/jsPDF) + [jspdf-autotable](https://github.com/simonbengtsson/jsPDF-AutoTable) | PDF export                                 |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+**Prerequisite:** Node.js installed (check with `node -v`).
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+```bash
+# 1. Clone the repository
+git clone <your-repo-url>
+cd student-crud
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# 2. Install dependencies
+npm install
 
+# 3. Start the dev server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Then open the URL printed in the terminal (usually `http://localhost:5173`).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Scripts
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Command           | What it does                                          |
+| ----------------- | ----------------------------------------------------- |
+| `npm run dev`     | Starts the development server                         |
+| `npm run build`   | Type-checks and creates a production build in `dist/` |
+| `npm run preview` | Serves the production build locally                   |
+| `npm run lint`    | Runs ESLint                                           |
+
+## Project structure
 
 ```
+src/
+├── components/
+│   ├── ui/                      # shadcn/ui components (generated)
+│   ├── DeleteAllDialog.tsx      # Confirmation for deleting everything
+│   ├── DeleteStudentDialog.tsx  # Confirmation for deleting one student
+│   ├── ExportMenu.tsx           # CSV / PDF dropdown
+│   ├── StudentFilters.tsx       # Search box and course dropdown
+│   ├── StudentFormDialog.tsx    # Shared form for Add and Edit
+│   └── StudentTable.tsx         # The table with row actions
+├── data/
+│   └── students.ts              # Mock data
+├── lib/
+│   ├── exportStudents.ts        # CSV and PDF helpers
+│   └── utils.ts                 # shadcn class-name helper
+├── types/
+│   └── student.ts               # Student interface
+├── App.tsx                      # State and wiring for everything
+├── index.css                    # Tailwind and theme variables
+└── main.tsx                     # Entry point
+```
+
+## How it works
+
+- All data lives in a single `students` state in `App.tsx`. Refreshing the page resets it to the mock data in `src/data/students.ts`.
+- The displayed list (`filteredStudents`) and the course dropdown options are **derived** from state on every render rather than stored separately.
+- One dialog (`StudentFormDialog`) handles both adding and editing. If a student is passed in, it edits; otherwise it creates.
+- Exports use the filtered list, so the file matches what you see on screen.
+
+## Possible improvements
+
+- Persist data with `localStorage`
+- Form validation and toast notifications
+- Sorting by column and pagination
+- Connect to a real API in place of the mock data
+- Unit tests with Vitest and React Testing Library
+
+## Deployment
+
+The app builds to static files, so it can be hosted on any static host (Vercel, Netlify, GitHub Pages, Cloudflare Pages).
+
+```bash
+npm run build
+```
+
+Upload or connect the `dist/` folder. For GitHub Pages, set `base: '/your-repo-name/'` in `vite.config.ts`.
+
+## License
+
+Personal project, free to use for learning.
